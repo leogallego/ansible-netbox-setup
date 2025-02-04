@@ -1,0 +1,13 @@
+- name: "NetBox tenant group module"
+  connection: local
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create tenant within NetBox with only required information
+      netbox_tenant_group:
+#        netbox_url: http://netbox.local
+#        netbox_token: thisIsMyToken
+        data:
+          name: Red Hat
+          slug: "redhat"
+        state: present

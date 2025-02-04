@@ -1,0 +1,22 @@
+- name: "Test NetBox modules"
+  connection: local
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Create device role within NetBox with only required information
+      netbox.netbox.netbox_device_role:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          name: Test device role
+          color: FFFFFF
+        state: present
+
+    - name: Delete device role within netbox
+      netbox.netbox.netbox_device_role:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          name: Test Rack role
+        state: absent

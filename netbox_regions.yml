@@ -1,0 +1,12 @@
+- name: "Test NetBox region module"
+  connection: local
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create region within NetBox with only required information
+      netbox.netbox.netbox_region:
+#        netbox_url: http://netbox.local
+#        netbox_token: thisIsMyToken
+        data:
+          name: "{{ region_name }}"
+        state: "{{ region_state }}"

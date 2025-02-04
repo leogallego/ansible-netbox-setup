@@ -1,0 +1,17 @@
+- name: "NetBox site playbook"
+  connection: local
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create site with all parameters
+      netbox.netbox.netbox_site:
+#        netbox_url: http://netbox.local
+#        netbox_token: thisIsMyToken
+        data:
+          name: Cisco Live
+          time_zone: Europe/Amsterdam
+          description: Cisco Live 2025 Amsterdam
+          slug: cisco-live-emea
+        state: present
+
+

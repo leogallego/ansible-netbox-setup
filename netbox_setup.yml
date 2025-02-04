@@ -1,0 +1,36 @@
+- name: "NetBox site playbook"
+  connection: local
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Create site with all parameters
+      netbox.netbox.netbox_site:
+#        netbox_url: http://netbox.local
+#        netbox_token: thisIsMyToken
+        data:
+          name: Cisco Live
+          time_zone: Europe/Amsterdam
+          description: Cisco Live 2025 Amsterdam
+          slug: cisco-live-emea
+        state: present
+
+    - name: Create device type within NetBox with only required information
+      netbox.netbox.netbox_device_type:
+#        netbox_url: http://netbox.local
+#        netbox_token: thisIsMyToken
+        data:
+          slug: cat8000v
+          model: C8000V
+          manufacturer: Cisco
+        state: present
+
+    - name: Create device within NetBox with only required information
+      netbox.netbox.netbox_device:
+#        netbox_url: http://netbox.local
+#        netbox_token: thisIsMyToken
+        data:
+          name: cat1
+          device_type: C8000V
+          device_role: Edge Router
+          site: Main
+        state: present

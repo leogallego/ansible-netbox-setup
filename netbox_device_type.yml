@@ -1,0 +1,38 @@
+- name: "Test NetBox modules"
+  connection: local
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Create device type within NetBox with only required information
+      netbox.netbox.netbox_device_type:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          slug: test-device-type
+          model: ws-test-3750
+          manufacturer: Test Manufacturer
+        state: present
+
+    - name: Create device type within NetBox with only required information
+      netbox.netbox.netbox_device_type:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          slug: test-device-type
+          model: ws-test-3750
+          manufacturer: Test Manufacturer
+          part_number: ws-3750g-v2
+          u_height: 1.5
+          is_full_depth: false
+          subdevice_role: parent
+        state: present
+
+    - name: Delete device type within netbox
+      netbox.netbox.netbox_device_type:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          slug: test-device-type
+        state: absent
+

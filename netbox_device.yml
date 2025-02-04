@@ -1,0 +1,61 @@
+- name: "Test NetBox modules"
+  connection: local
+  hosts: localhost
+  gather_facts: false
+
+  tasks:
+    - name: Create device within NetBox with only required information
+      netbox.netbox.netbox_device:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          name: Test Device
+          device_type: C9410R
+          device_role: Core Switch
+          site: Main
+        state: present
+
+    - name: Create device within NetBox with empty string name to generate UUID
+      netbox.netbox.netbox_device:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          name: ""
+          device_type: C9410R
+          device_role: Core Switch
+          site: Main
+        state: present
+
+    - name: Delete device within netbox
+      netbox.netbox.netbox_device:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          name: Test Device
+        state: absent
+
+    - name: Create device with tags
+      netbox.netbox.netbox_device:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          name: Another Test Device
+          device_type: C9410R
+          device_role: Core Switch
+          site: Main
+          local_context_data:
+            bgp: "65000"
+          tags:
+            - Schnozzberry
+        state: present
+
+    - name: Update the rack and position of an existing device
+      netbox.netbox.netbox_device:
+        netbox_url: http://netbox.local
+        netbox_token: thisIsMyToken
+        data:
+          name: Test Device
+          rack: Test Rack
+          position: 10.5
+          face: Front
+        state: present
