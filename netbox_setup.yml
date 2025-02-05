@@ -14,14 +14,31 @@
           slug: cisco-live-emea
         state: present
 
+    - name: Create manufacturer within NetBox with only required information
+      netbox.netbox.netbox_manufacturer:
+#        netbox_url: http://netbox.local
+#        netbox_token: thisIsMyToken
+        data:
+          name: Cisco
+        state: present
+
     - name: Create device type within NetBox with only required information
       netbox.netbox.netbox_device_type:
 #        netbox_url: http://netbox.local
 #        netbox_token: thisIsMyToken
         data:
-          slug: cat8000v
+          slug: catalyst8000v
           model: C8000V
           manufacturer: Cisco
+        state: present
+
+    - name: Create device role within NetBox with only required information
+      netbox.netbox.netbox_device_role:
+#        netbox_url: http://netbox.local
+#        netbox_token: thisIsMyToken
+        data:
+          name: Edge Router
+          color: FFFFFF
         state: present
 
     - name: Create device within NetBox with only required information
@@ -29,8 +46,9 @@
 #        netbox_url: http://netbox.local
 #        netbox_token: thisIsMyToken
         data:
-          name: cat1
+          name: catalyst1
           device_type: C8000V
           device_role: Edge Router
           site: Main
         state: present
+    
