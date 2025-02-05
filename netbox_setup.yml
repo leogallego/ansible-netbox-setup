@@ -53,7 +53,7 @@
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
         data:
-          content_types:
+          object_types:
             - dcim.device
           name: host
           type: text
@@ -63,7 +63,7 @@
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
         data:
-          content_types:
+          object_types:
             - dcim.device
           name: port
           type: text
@@ -88,4 +88,7 @@
           device_role: Edge Router
           site: cisco-live-emea
           platform: cisco.ios.ios
+          custom_fields:
+            - host
+            - port
         state: present
