@@ -1,19 +1,23 @@
-- name: "NetBox site playbook"
+- name: "Configure a basic NetBox with a Cisco device"
   connection: local
   hosts: localhost
   gather_facts: false
   vars:
     netbox_url: "{{ lookup('env', 'NETBOX_API') }}"
     netbox_token: "{{ lookup('env', 'NETBOX_TOKEN') }}"
+    site: cisco-live-emea
+    manufacturer: cisco
+    device_type: cisco-c8000v
+    device_role: edge-router
+    platform: cisco.ios.ios
+
   tasks:
     - name: Create site with all parameters
       netbox.netbox.netbox_site:
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
         data:
-          name: Cisco Live EMEA
-          time_zone: Europe/Amsterdam
-          description: Cisco Live 2025 Amsterdam
+          name: cisco-live-emea
           slug: cisco-live-emea
         state: present
 
@@ -22,7 +26,7 @@
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
         data:
-          name: Cisco
+          name: cisco
         state: present
 
     - name: Create device type within NetBox with only required information
@@ -30,9 +34,9 @@
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
         data:
-          slug: catalyst8000v
-          model: C8000V
-          manufacturer: Cisco
+          slug: cisco-c8000v
+          model: cisco-c8000v
+          manufacturer: cisco
         state: present
 
     - name: Create device role within NetBox with only required information
@@ -40,8 +44,38 @@
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
         data:
-          name: Edge Router
+          name: edge-router
           color: FFFFFF
+        state: present
+    
+    - name: Create a custom field on device and virtual machine
+      netbox.netbox.netbox_custom_field:
+        netbox_url: "{{ netbox_url }}"
+        netbox_token: "{{ netbox_token }}"
+        data:
+          content_types:
+            - dcim.device
+          name: host
+          type: text
+    
+    - name: Create a custom field on device and virtual machine
+      netbox.netbox.netbox_custom_field:
+        netbox_url: "{{ netbox_url }}"
+        netbox_token: "{{ netbox_token }}"
+        data:
+          content_types:
+            - dcim.device
+          name: port
+          type: text
+
+    - name: Create platform within NetBox with only required information
+      netbox.netbox.netbox_platform:
+        netbox_url: "{{ netbox_url }}"
+        netbox_token: "{{ netbox_token }}"
+        data:
+          name: cisco.ios.ios
+          slug: cisco-ios-ios
+          manufacturer: cisco
         state: present
 
     - name: Create device within NetBox with only required information
@@ -49,9 +83,9 @@
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
         data:
-          name: catalyst1
-          device_type: catalyst8000v
+          name: cat1
+          device_type: cisco-c8000v
           device_role: Edge Router
           site: cisco-live-emea
+          platform: cisco.ios.ios
         state: present
-    
