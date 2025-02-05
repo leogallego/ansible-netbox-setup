@@ -50,7 +50,7 @@
         netbox_token: "{{ netbox_token }}"
         data:
           name: catalyst1
-          device_type: C8000V
+          device_type: catalyst8000v
           device_role: Edge Router
           site: Main
         state: present
