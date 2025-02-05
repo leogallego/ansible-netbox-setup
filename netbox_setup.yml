@@ -52,6 +52,6 @@
           name: catalyst1
           device_type: catalyst8000v
           device_role: Edge Router
-          site: Main
+          site: cisco-live-emea
         state: present
     
