@@ -11,7 +11,7 @@
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
         data:
-          name: Cisco Live
+          name: Cisco Live EMEA
           time_zone: Europe/Amsterdam
           description: Cisco Live 2025 Amsterdam
           slug: cisco-live-emea
