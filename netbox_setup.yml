@@ -12,7 +12,7 @@
     platform: cisco.ios.ios
 
   tasks:
-    - name: Create site with all parameters
+    - name: Create site with required parameters
       netbox.netbox.netbox_site:
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
@@ -127,3 +127,14 @@
     #       ssl_verification: "false"
     #       body_template: !unsafe >-
     #         {{ data }}
+
+    - name: Create vlan with all information
+      netbox.netbox.netbox_vlan:
+        netbox_url: "{{ netbox_url }}"
+        netbox_token: "{{ netbox_token }}"
+        data:
+          name: data_vlan
+          vid: 100
+          site: cisco-live-emea
+          status: Deprecated
+        state: present
