@@ -92,7 +92,7 @@
           custom_fields: { 'host': 'cisco', 'port': '22' }
         state: present
 
-    - name: Create config context and apply it to sites 
+    - name: Create config context ntp and apply it to sites 
       netbox.netbox.netbox_config_context:
         netbox_url: "{{ netbox_url }}"
         netbox_token: "{{ netbox_token }}"
@@ -102,6 +102,15 @@
           data: "{ \"ntp_servers\": [ \"time-a-g.nist.gov\", \"time-b-g.nist.gov\" ] }"
           sites: "[cisco-live-emea]"
 
+    - name: Create config context banner and apply it to sites 
+      netbox.netbox.netbox_config_context:
+        netbox_url: "{{ netbox_url }}"
+        netbox_token: "{{ netbox_token }}"
+        data:
+          name: "login_banner"
+          description: "Login Banner"
+          data: "{ \"login_banner\": [ \"THIS IS A LOGIN BANNER SOURCED FROM NETBOX\" ] }"
+          sites: "[cisco-live-emea]"
 
     # - name: Create a webhook
     #   netbox.netbox.netbox_webhook:
