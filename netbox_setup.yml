@@ -78,6 +78,7 @@
           manufacturer: cisco
         state: present
 
+
     - name: Create device within NetBox with only required information
       netbox.netbox.netbox_device:
         netbox_url: "{{ netbox_url }}"
@@ -88,7 +89,5 @@
           device_role: Edge Router
           site: cisco-live-emea
           platform: cisco.ios.ios
-          custom_fields:
-            - host
-            - port
+          custom_fields: { 'host': 'cisco', 'port': '22' }
         state: present
